@@ -62,7 +62,7 @@ export LD_LIBRARY_PATH=LD_LIBRARY_PATH:/usr/local/lib
 Place this repo in /epics/iocs/
 ```bash
 cd /epics/iocs
-git clone https://github.com/ornl-hkl-projects/ioc-hkl.git
+git clone https://github.com/hkl-projects/ioc-hkl.git
 cd ioc-hkl
 make
 ```
