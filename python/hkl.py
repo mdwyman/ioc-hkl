@@ -1,6 +1,7 @@
 import math
 import numpy as np
 #import pandas as pd
+from epics import caget
 import gi
 from gi.repository import GLib
 gi.require_version('Hkl', '5.0')
@@ -118,6 +119,7 @@ class hklCalculator():
         # Eulerian 4-circle (omega, chi, phi, tth)
         self.axes_e4c = [0.,0.,0.,0.]
 
+        #self.axes_e4c_min = [caget(<PV_name>.DRVL), caget(<PV_name>.DRVL), caget(<PV_name>.DRVL),caget(<PV_name>.DRVL)]
         self.axes_e4c_min = [-180.,-180.,-180.,-180.]
         self.axes_e4c_max = [180.,180.,180.,180.]
 
