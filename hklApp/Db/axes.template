@@ -6,6 +6,27 @@ record(ao, "$(P)$(R)omega_e4c") {
     field(DRVL, "-180")
     field(DRVH, "180")
     field(OUT, "@hkl_calc.axes_e4c[0]=VAL")
+    field(FLNK, "$(P)$(R)omega_e4c_min")
+}
+
+record(ao, "$(P)$(R)omega_e4c_min") {
+    field(DESC, "omega min")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    #field(OUT, "@hkl_calc.axes_e4c_min[0]=$(P)$(R)omega_e4c.DRVL") # What I want to happen
+    field(OUT, "@hkl_calc.axes_e4c_min[0]=VAL")
+    field(FLNK, "$(P)$(R)omega_e4c_max")
+}
+
+record(ao, "$(P)$(R)omega_e4c_max") {
+    field(DESC, "omega max")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e4c_max[0]=VAL")
     field(FLNK, "$(P)$(R)omega_e4c_RBV")
 }
 
@@ -33,6 +54,24 @@ record(ai, "$(P)$(R)chi_e4c_RBV") {
     field(INP, "@hkl_calc.axes_e4c[1]")
 }
 
+record(ao, "$(P)$(R)chi_e4c_min") {
+    field(DESC, "chi min")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e4c_min[1]=VAL")
+}
+
+record(ao, "$(P)$(R)chi_e4c_max") {
+    field(DESC, "chi max")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e4c_max[1]=VAL")
+}
+
 record(ao, "$(P)$(R)phi_e4c") {
     field(DESC, "phi")
     field(DTYP, "pydev")
@@ -48,6 +87,24 @@ record(ai, "$(P)$(R)phi_e4c_RBV") {
     field(DTYP, "pydev")
     field(PINI, "YES")
     field(INP, "@hkl_calc.axes_e4c[2]")
+}
+
+record(ao, "$(P)$(R)phi_e4c_min") {
+    field(DESC, "phi")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e4c_min[2]=VAL")
+}
+
+record(ao, "$(P)$(R)phi_e4c_max") {
+    field(DESC, "phi max")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e4c_max[2]=VAL")
 }
 
 record(ao, "$(P)$(R)tth_e4c") {
@@ -67,6 +124,25 @@ record(ai, "$(P)$(R)tth_e4c_RBV") {
     field(INP, "@hkl_calc.axes_e4c[3]")
 }
 
+record(ao, "$(P)$(R)tth_e4c_min") {
+    field(DESC, "tth min")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e4c_min[3]=VAL")
+}
+
+record(ao, "$(P)$(R)tth_e4c_max") {
+    field(DESC, "tth max")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e4c_max[3]=VAL")
+}
+
+
 # Kappa 4-circle
 record(ao, "$(P)$(R)komega_k4c") {
     field(DESC, "komega")
@@ -83,6 +159,24 @@ record(ai, "$(P)$(R)komega_k4c_RBV") {
     field(PINI, "YES")
     field(DTYP, "pydev")
     field(INP, "@hkl_calc.axes_k4c[0]")
+}
+
+record(ao, "$(P)$(R)komega_k4c_min") {
+    field(DESC, "komega min")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k4c_min[0]=VAL")
+}
+
+record(ao, "$(P)$(R)komega_k4c_max") {
+    field(DESC, "komega max")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k4c_max[0]=VAL")
 }
 
 record(ao, "$(P)$(R)kappa_k4c") {
@@ -102,6 +196,24 @@ record(ai, "$(P)$(R)kappa_k4c_RBV") {
     field(INP, "@hkl_calc.axes_k4c[1]")
 }
 
+record(ao, "$(P)$(R)kappa_k4c_min") {
+    field(DESC, "kappa min")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k4c_min[1]=VAL")
+}
+
+record(ao, "$(P)$(R)kappa_k4c_max") {
+    field(DESC, "kappa max")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k4c_max[1]=VAL")
+}
+
 record(ao, "$(P)$(R)kphi_k4c") {
     field(DESC, "kphi")
     field(DTYP, "pydev")
@@ -119,6 +231,24 @@ record(ai, "$(P)$(R)kphi_k4c_RBV") {
     field(INP, "@hkl_calc.axes_k4c[2]")
 }
 
+record(ao, "$(P)$(R)kphi_k4c_min") {
+    field(DESC, "kphi min")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k4c_min[2]=VAL")
+}
+
+record(ao, "$(P)$(R)kphi_k4c_max") {
+    field(DESC, "kphi max")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k4c_max[2]=VAL")
+}
+
 record(ao, "$(P)$(R)tth_k4c") {
     field(DESC, "tth")
     field(DTYP, "pydev")
@@ -134,6 +264,24 @@ record(ai, "$(P)$(R)tth_k4c_RBV") {
     field(DTYP, "pydev")
     field(PINI, "YES")
     field(INP, "@hkl_calc.axes_k4c[3]")
+}
+
+record(ao, "$(P)$(R)tth_k4c_min") {
+    field(DESC, "tth min")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k4c_min[3]=VAL")
+}
+
+record(ao, "$(P)$(R)tth_k4c_max") {
+    field(DESC, "tth max")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k4c_max[3]=VAL")
 }
 
 # Eulerian 6-circle
@@ -154,6 +302,24 @@ record(ai, "$(P)$(R)mu_e6c_RBV") {
     field(INP, "@hkl_calc.axes_e6c[0]")
 }
 
+record(ao, "$(P)$(R)mu_e6c_min") {
+    field(DESC, "mu min")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e6c_min[0]=VAL")
+}
+
+record(ao, "$(P)$(R)mu_e6c_max") {
+    field(DESC, "mu max")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e6c_max[0]=VAL")
+}
+
 record(ao, "$(P)$(R)omega_e6c") {
     field(DESC, "omega")
     field(PINI, "YES")
@@ -169,6 +335,24 @@ record(ai, "$(P)$(R)omega_e6c_RBV") {
     field(PINI, "YES")
     field(DTYP, "pydev")
     field(INP, "@hkl_calc.axes_e6c[1]")
+}
+
+record(ao, "$(P)$(R)omega_e6c_min") {
+    field(DESC, "omega min")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e6c_min[1]=VAL")
+}
+
+record(ao, "$(P)$(R)omega_e6c_max") {
+    field(DESC, "omega max")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e6c_max[1]=VAL")
 }
 
 record(ao, "$(P)$(R)chi_e6c") {
@@ -188,6 +372,24 @@ record(ai, "$(P)$(R)chi_e6c_RBV") {
     field(INP, "@hkl_calc.axes_e6c[2]")
 }
 
+record(ao, "$(P)$(R)chi_e6c_min") {
+    field(DESC, "chi min")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e6c_min[2]=VAL")
+}
+
+record(ao, "$(P)$(R)chi_e6c_max") {
+    field(DESC, "chi max")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e6c_max[2]=VAL")
+}
+
 record(ao, "$(P)$(R)phi_e6c") {
     field(DESC, "phi")
     field(DTYP, "pydev")
@@ -203,6 +405,24 @@ record(ai, "$(P)$(R)phi_e6c_RBV") {
     field(DTYP, "pydev")
     field(PINI, "YES")
     field(INP, "@hkl_calc.axes_e6c[3]")
+}
+
+record(ao, "$(P)$(R)phi_e6c_min") {
+    field(DESC, "phi min")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e6c_min[3]=VAL")
+}
+
+record(ao, "$(P)$(R)phi_e6c_max") {
+    field(DESC, "phi max")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e6c_max[3]=VAL")
 }
 
 record(ao, "$(P)$(R)gamma_e6c") {
@@ -222,6 +442,24 @@ record(ai, "$(P)$(R)gamma_e6c_RBV") {
     field(INP, "@hkl_calc.axes_e6c[4]")
 }
 
+record(ao, "$(P)$(R)gamma_e6c_min") {
+    field(DESC, "gamma min")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e6c_min[4]=VAL")
+}
+
+record(ao, "$(P)$(R)gamma_e6c_max") {
+    field(DESC, "gamma max")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e6c_max[4]=VAL")
+}
+
 record(ao, "$(P)$(R)delta_e6c") {
     field(DESC, "delta")
     field(DTYP, "pydev")
@@ -237,6 +475,15 @@ record(ai, "$(P)$(R)delta_e6c_RBV") {
     field(DTYP, "pydev")
     field(PINI, "YES")
     field(INP, "@hkl_calc.axes_e6c[5]")
+}
+
+record(ao, "$(P)$(R)delta_e6c_min") {
+    field(DESC, "delta min")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_e6c_min[5]=VAL")
 }
 
 # Kappa 6-circle
@@ -257,6 +504,24 @@ record(ai, "$(P)$(R)mu_k6c_RBV") {
     field(INP, "@hkl_calc.axes_k6c[0]")
 }
 
+record(ao, "$(P)$(R)mu_k6c_min") {
+    field(DESC, "mu min")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k6c_min[0]=VAL")
+}
+
+record(ao, "$(P)$(R)mu_k6c_max") {
+    field(DESC, "mu max")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k6c_max[0]=VAL")
+}
+
 record(ao, "$(P)$(R)komega_k6c") {
     field(DESC, "komega")
     field(PINI, "YES")
@@ -272,6 +537,24 @@ record(ai, "$(P)$(R)komega_k6c_RBV") {
     field(PINI, "YES")
     field(DTYP, "pydev")
     field(INP, "@hkl_calc.axes_k6c[1]")
+}
+
+record(ao, "$(P)$(R)komega_k6c_min") {
+    field(DESC, "komega max")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_ekc_min[1]=VAL")
+}
+
+record(ao, "$(P)$(R)komega_k6c_max") {
+    field(DESC, "komega max")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_ekc_max[1]=VAL")
 }
 
 record(ao, "$(P)$(R)kappa_k6c") {
@@ -291,6 +574,24 @@ record(ai, "$(P)$(R)kappa_k6c_RBV") {
     field(INP, "@hkl_calc.axes_k6c[2]")
 }
 
+record(ao, "$(P)$(R)kappa_k6c_min") {
+    field(DESC, "kappa min")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k6c_min[2]=VAL")
+}
+
+record(ao, "$(P)$(R)kappa_k6c_max") {
+    field(DESC, "kappa max")
+    field(PINI, "YES")
+    field(DTYP, "pydev")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k6c_max[2]=VAL")
+}
+
 record(ao, "$(P)$(R)kphi_k6c") {
     field(DESC, "kphi")
     field(DTYP, "pydev")
@@ -306,6 +607,24 @@ record(ai, "$(P)$(R)kphi_k6c_RBV") {
     field(DTYP, "pydev")
     field(PINI, "YES")
     field(INP, "@hkl_calc.axes_k6c[3]")
+}
+
+record(ao, "$(P)$(R)kphi_k6c_min") {
+    field(DESC, "kphi min")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k6c_min[3]=VAL")
+}
+
+record(ao, "$(P)$(R)kphi_k6c_max") {
+    field(DESC, "kphi max")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k6c_max[3]=VAL")
 }
 
 record(ao, "$(P)$(R)gamma_k6c") {
@@ -325,6 +644,24 @@ record(ai, "$(P)$(R)gamma_k6c_RBV") {
     field(INP, "@hkl_calc.axes_k6c[4]")
 }
 
+record(ao, "$(P)$(R)gamma_k6c_min") {
+    field(DESC, "gamma min")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k6c_min[4]=VAL")
+}
+
+record(ao, "$(P)$(R)gamma_k6c_max") {
+    field(DESC, "gamma max")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k6c_max[4]=VAL")
+}
+
 record(ao, "$(P)$(R)delta_k6c") {
     field(DESC, "delta")
     field(DTYP, "pydev")
@@ -342,6 +679,23 @@ record(ai, "$(P)$(R)delta_k6c_RBV") {
     field(INP, "@hkl_calc.axes_k6c[5]")
 }
 
+record(ao, "$(P)$(R)delta_k6c_min") {
+    field(DESC, "delta min")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k6c_min[5]=VAL")
+}
+
+record(ao, "$(P)$(R)delta_k6c_max") {
+    field(DESC, "delta max")
+    field(DTYP, "pydev")
+    field(PINI, "YES")
+    field(DRVL, "-180")
+    field(DRVH, "180")
+    field(OUT, "@hkl_calc.axes_k6c_max[5]=VAL")
+}
 
 # Constraints for inverse calculations
 # all 4-circles

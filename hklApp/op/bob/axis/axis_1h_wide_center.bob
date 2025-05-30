@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2024-08-02 13:59:02 by l3b-->
 <display version="2.0.0">
   <width>780</width>
   <height>22</height>
@@ -82,7 +81,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Text Input_1</name>
-    <pv_name>$(Sys)$(Dev).DRVL</pv_name>
+    <pv_name>HB3:ioc-hkl:omega_e4c_min</pv_name>
     <x>460</x>
     <width>150</width>
     <height>22</height>

@@ -118,14 +118,26 @@ class hklCalculator():
         # Eulerian 4-circle (omega, chi, phi, tth)
         self.axes_e4c = [0.,0.,0.,0.]
 
+        self.axes_e4c_min = [-180.,-180.,-180.,-180.]
+        self.axes_e4c_max = [180.,180.,180.,180.]
+
         # Kappa 4-circle (komega, kappa, kphi, tth)
         self.axes_k4c = [0.,0.,0.,0.]
 
+        self.axes_k4c_min = [-180.,-180.,-180.,-180.]
+        self.axes_k4c_max = [180.,180.,180.,180.]
+        
         # Eulerian 6-circle (mu, omega, chi, phi, gamma, delta)
         self.axes_e6c = [0.,0.,0.,0.,0.,0.]
 
+        self.axes_e6c_min = [-180.,-180.,-180.,-180.]
+        self.axes_e6c_min = [180.,180.,180.,180.]
+
         # Kappa 6-circle (mu, komega, kappa, kphi, gamma, delta)
         self.axes_k6c = [0.,0.,0.,0.,0.,0.]
+
+        self.axes_k6c_min = [-180.,-180.,-180.,-180.,-180.,-180.] 
+        self.axes_k6c_max = [180.,180.,180.,180.,180.,180.] 
 
         #TODO move to arrays for each geom
         ### axes for UB calculation - only used internally - avoids setting on calculation
@@ -278,6 +290,7 @@ class hklCalculator():
             self.engine_emergence = self.engines.engine_get_by_name("emergence")
         self.curr_num_refls = 0        
 
+        #self.set_limits()
         self.get_UB_matrix()    
         self.get_latt_vol()
         self.errors = f'{self.geom_name} started\n {self.get_info()}'
@@ -341,12 +354,30 @@ class hklCalculator():
                         float(self.axes_e4c[2]), \
                         float(self.axes_e4c[3])] 
             print(values_w)
+            limits_min =   [math.radians(float(self.axes_e4c_min[0])), \
+                            math.radians(float(self.axes_e4c_min[1])), \
+                            math.radians(float(self.axes_e4c_min[2])), \
+                            math.radians(float(self.axes_e4c_min[3]))] 
+            limits_max =   [math.radians(float(self.axes_e4c_max[0])), \
+                            math.radians(float(self.axes_e4c_max[1])), \
+                            math.radians(float(self.axes_e4c_max[2])), \
+                            math.radians(float(self.axes_e4c_max[3]))] 
+            print(limits_min)
+            print(limits_max)
         if self.geom_name == "K4CV":
             values_w = [float(self.axes_k4c[0]), \
                         float(self.axes_k4c[1]), \
                         float(self.axes_k4c[2]), \
                         float(self.axes_k4c[3])] 
             print(values_w)
+            limits_min =   [float(self.axes_k4c_min[0]), \
+                            float(self.axes_k4c_min[1]), \
+                            float(self.axes_k4c_min[2]), \
+                            float(self.axes_k4c_min[3])] 
+            limits_max =   [float(self.axes_k4c_max[0]), \
+                            float(self.axes_k4c_max[1]), \
+                            float(self.axes_k4c_max[2]), \
+                            float(self.axes_k4c_max[3])] 
         elif self.geom_name == "E6C":
             values_w = [float(self.axes_e6c[0]), \
                         float(self.axes_e6c[1]), \
@@ -355,19 +386,48 @@ class hklCalculator():
                         float(self.axes_e6c[4]), \
                         float(self.axes_e6c[5])] 
             print(values_w)
+            limits_min =   [float(self.axes_e6c_min[0]), \
+                            float(self.axes_e6c_min[1]), \
+                            float(self.axes_e6c_min[2]), \
+                            float(self.axes_e6c_min[3]), \
+                            float(self.axes_e6c_min[4]), \
+                            float(self.axes_e6c_min[5])] 
+            limits_max =   [float(self.axes_e6c_max[0]), \
+                            float(self.axes_e6c_max[1]), \
+                            float(self.axes_e6c_max[2]), \
+                            float(self.axes_e6c_max[3]), \
+                            float(self.axes_e6c_max[4]), \
+                            float(self.axes_e6c_max[5])] 
         elif self.geom_name == "K6C":
             values_w = [float(self.axes_k6c[0]), \
+                        
                         float(self.axes_k6c[1]), \
                         float(self.axes_k6c[2]), \
                         float(self.axes_k6c[3]), \
                         float(self.axes_k6c[4]), \
                         float(self.axes_k6c[5])] 
             print(values_w)
-
+            limits_min =   [float(self.axes_k6c_min[0]), \
+                            float(self.axes_k6c_min[1]), \
+                            float(self.axes_k6c_min[2]), \
+                            float(self.axes_k6c_min[3]), \
+                            float(self.axes_k6c_min[4]), \
+                            float(self.axes_k6c_min[5])] 
+            limits_max =   [float(self.axes_k6c_max[0]), \
+                            float(self.axes_k6c_max[1]), \
+                            float(self.axes_k6c_max[2]), \
+                            float(self.axes_k6c_max[3]), \
+                            float(self.axes_k6c_max[4]), \
+                            float(self.axes_k6c_max[5])] 
         try:
             self.geometry.axis_values_set(values_w, Hkl.UnitEnum.USER)
-        except:
+            for axis in self.geometry.axis_names_get():
+                tmp = self.geometry.axis_get(axis)
+                tmp.min_max_set(0, 180.0, Hkl.UnitEnum.USER)
+                self.geometry.axis_set(axis, tmp)
+        except Exception as e:
             print("invalid axes values")
+            print(e)
             #TODO catch different types of errors
             return
 
@@ -918,6 +978,10 @@ class hklCalculator():
 
     def set_wavelength(self, wlen):
         self.wavelength = wlen
+
+    def set_limits(self):
+        #TODO
+        pass
 
     def get_latt_vol(self):
         self.lattice_vol = self.lattice.volume_get().value_get(0)
