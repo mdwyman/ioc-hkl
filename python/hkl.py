@@ -1,7 +1,7 @@
 import math
 import numpy as np
 #import pandas as pd
-from epics import caget
+#from epics import caget
 import gi
 from gi.repository import GLib
 gi.require_version('Hkl', '5.0')

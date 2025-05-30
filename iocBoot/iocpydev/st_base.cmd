@@ -5,8 +5,8 @@
 # PYTHONPATH points to folders where Python modules are.
 epicsEnvSet("PYTHONPATH","$(TOP)/python")
 
-# Prefix set for Triple Axis Spectrometer -> TAS
-epicsEnvSet("PREFIX", "HB3:ioc-hkl:")
+# Designate beamline:IOC_name as conventional prefix
+epicsEnvSet("PREFIX", "abtest:ioc-hkl:")
 
 cd ${TOP}
 
@@ -38,16 +38,6 @@ dbpf("$(PREFIX)omega_e4c","30")
 dbpf("$(PREFIX)chi_e4c","20")
 dbpf("$(PREFIX)phi_e4c","10")
 dbpf("$(PREFIX)tth_e4c","10")
-
-dbpf("$(PREFIX)omega_e4c_min","-180")
-dbpf("$(PREFIX)omega_e4c_max","180")
-dbpf("$(PREFIX)chi_e4c_min","-180")
-dbpf("$(PREFIX)chi_e4c_max","180")
-dbpf("$(PREFIX)phi_e4c_min","-180")
-dbpf("$(PREFIX)phi_e4c_max","180")
-dbpf("$(PREFIX)tth_e4c_min","-180")
-dbpf("$(PREFIX)tth_e4c_max","180")
-
 dbpf("$(PREFIX)h","1")
 dbpf("$(PREFIX)k","1")
 dbpf("$(PREFIX)l","1")
@@ -68,4 +58,4 @@ dbpf("$(PREFIX)refl2_tth_e4c","69")
 #dbpf("$(PREFIX)errors","my string test")
 
 
-#dbl > pvlist.dbl
+dbl > pvlist.dbl

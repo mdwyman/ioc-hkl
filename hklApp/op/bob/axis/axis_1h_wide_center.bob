@@ -81,7 +81,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Text Input_1</name>
-    <pv_name>HB3:ioc-hkl:omega_e4c_min</pv_name>
+    <pv_name>$(Sys)$(Dev).DRVL</pv_name>
     <x>460</x>
     <width>150</width>
     <height>22</height>
