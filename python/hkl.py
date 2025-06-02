@@ -2,6 +2,7 @@ import math
 import numpy as np
 #import pandas as pd
 #from epics import caget
+#import traceback
 import gi
 from gi.repository import GLib
 gi.require_version('Hkl', '5.0')
@@ -36,7 +37,8 @@ class hklCalculator():
         self.lattice = np.nan 
         self.lattice_vol = 0.
         
-        self.errors = 'test string' #TODO
+        #self.errors = list('test string') #TODO
+        self.errors = [ord(c) for c in "test string"]
         
         self.energy = 0.
         self.wavelength_result = 0.
@@ -295,7 +297,9 @@ class hklCalculator():
         #self.set_limits()
         self.get_UB_matrix()    
         self.get_latt_vol()
-        self.errors = f'{self.geom_name} started\n {self.get_info()}'
+        status = self.get_info()
+        print(f'THIS IS STATUS {status}')
+        #self.errors = f'{self.geom_name} started {status}'
 
     def energy_to_wavelength_neutron(self):
         # Xrays
@@ -428,9 +432,9 @@ class hklCalculator():
                 tmp.min_max_set(0, 180.0, Hkl.UnitEnum.USER)
                 self.geometry.axis_set(axis, tmp)
         except Exception as e:
-            print("invalid axes values")
-            print(e)
-            #TODO catch different types of errors
+            print(f'error: {e}')
+            #self.errors=list(str(e))
+            self.errors=[ord(c) for c in str(e)]
             return
 
         self.engines.get()
@@ -513,7 +517,9 @@ class hklCalculator():
                         float(self.axes_UB_k6c[5])] 
         try:
             self.geometry.axis_values_set(values_w, Hkl.UnitEnum.USER)
-        except:
+        except Exception as e:
+            #self.errors = list(str(e))
+            self.errors = [ord(c) for c in str(e)]
             print("invalid axes values")
             return
 
@@ -543,43 +549,48 @@ class hklCalculator():
         values_hkl = [float(self.pseudoaxes_h), \
                       float(self.pseudoaxes_k), \
                       float(self.pseudoaxes_l)]
+        try:
+            solutions = self.engine_hkl.pseudo_axis_values_set(values_hkl, Hkl.UnitEnum.USER)
+            values_w_all = []
+            len_solns = len(solutions.items())
+            for i, item in enumerate(solutions.items()):
+                read = item.geometry_get().axis_values_get(Hkl.UnitEnum.USER)
+                values_w_all.append(read)
+            if len_solns > self.num_axes_solns: # truncate if above max available soln slots
+                len_solns = self.num_axes_solns
+            if (self.geom == 1) or (self.geom==2):
+                for i in range(len_solns): 
+                    self.axes_solns_omega_e4c[i], \
+                    self.axes_solns_chi_e4c[i], \
+                    self.axes_solns_phi_e4c[i], \
+                    self.axes_solns_tth_e4c[i] = values_w_all[i]         
+            elif self.geom == 3:
+                for i in range(len_solns): 
+                    self.axes_solns_komega_k4c[i], \
+                    self.axes_solns_kappa_k4c[i], \
+                    self.axes_solns_kphi_k4c[i], \
+                    self.axes_solns_tth_k4c[i] = values_w_all[i]         
+            elif self.geom == 4:
+                for i in range(len_solns): 
+                    self.axes_solns_mu_e6c[i], \
+                    self.axes_solns_omega_e6c[i], \
+                    self.axes_solns_chi_e6c[i], \
+                    self.axes_solns_phi_e6c[i], \
+                    self.axes_solns_gamma_e6c[i], \
+                    self.axes_solns_delta_e6c[i] = values_w_all[i]       
+            elif self.geom==5:  
+                 for i in range(len_solns): 
+                    self.axes_solns_mu_k6c[i], \
+                    self.axes_solns_komega_k6c[i], \
+                    self.axes_solns_kappa_k6c[i], \
+                    self.axes_solns_kphi_k6c[i], \
+                    self.axes_solns_gamma_k6c[i], \
+                    self.axes_solns_delta_k6c[i] = values_w_all[i]
+        except Exception as e:
+            #self.errors = list(str(e))
+            self.errors = [ord(c) for c in str(e)]
+            print(f'error: {e}')
 
-        solutions = self.engine_hkl.pseudo_axis_values_set(values_hkl, Hkl.UnitEnum.USER)
-        values_w_all = []
-        len_solns = len(solutions.items())
-        for i, item in enumerate(solutions.items()):
-            read = item.geometry_get().axis_values_get(Hkl.UnitEnum.USER)
-            values_w_all.append(read)
-        if len_solns > self.num_axes_solns: # truncate if above max available soln slots
-            len_solns = self.num_axes_solns
-        if (self.geom == 1) or (self.geom==2):
-            for i in range(len_solns): 
-                self.axes_solns_omega_e4c[i], \
-                self.axes_solns_chi_e4c[i], \
-                self.axes_solns_phi_e4c[i], \
-                self.axes_solns_tth_e4c[i] = values_w_all[i]         
-        elif self.geom == 3:
-            for i in range(len_solns): 
-                self.axes_solns_komega_k4c[i], \
-                self.axes_solns_kappa_k4c[i], \
-                self.axes_solns_kphi_k4c[i], \
-                self.axes_solns_tth_k4c[i] = values_w_all[i]         
-        elif self.geom == 4:
-            for i in range(len_solns): 
-                self.axes_solns_mu_e6c[i], \
-                self.axes_solns_omega_e6c[i], \
-                self.axes_solns_chi_e6c[i], \
-                self.axes_solns_phi_e6c[i], \
-                self.axes_solns_gamma_e6c[i], \
-                self.axes_solns_delta_e6c[i] = values_w_all[i]       
-        elif self.geom==5:  
-             for i in range(len_solns): 
-                self.axes_solns_mu_k6c[i], \
-                self.axes_solns_komega_k6c[i], \
-                self.axes_solns_kappa_k6c[i], \
-                self.axes_solns_kphi_k6c[i], \
-                self.axes_solns_gamma_k6c[i], \
-                self.axes_solns_delta_k6c[i] = values_w_all[i]         
      
     def get_axes(self):
         if self.geom == 1 or 2:
@@ -828,7 +839,12 @@ class hklCalculator():
         print("Computing UB matrix")
         self.add_reflection1()
         self.add_reflection2()
-        self.sample.compute_UB_busing_levy(self.refl1, self.refl2)
+        try:
+            self.sample.compute_UB_busing_levy(self.refl1, self.refl2)
+        except Exception as e:
+            #self.errors = list(str(e))
+            self.errors = [ord(c) for c in str(e)]
+            print("error: {e}")
         UB = self.sample.UB_get()
         for i in range(3):
             for j in range(3):
@@ -864,7 +880,13 @@ class hklCalculator():
         for i in range(3):
             for j in range(3):
                 print(UB_temp.get(i,j))
-        self.sample.UB_set(UB_temp)
+        try:
+            self.sample.UB_set(UB_temp)
+        except Exception as e:
+            #self.errors = list(str(e))
+            self.errors = [ord(c) for c in str(e)]
+            print(f'dtype of e: {type(e)}')
+            print(f'error: {e}')
         self.get_UB_matrix()
         self.get_info()        
 
@@ -874,9 +896,12 @@ class hklCalculator():
         '''
         try:
             self.sample.affine()
-        except RuntimeError as e:
+        #except RuntimeError as e:
+        except Exception as e:
             #TODO
-            self.errors = traceback.print_exc()
+            #self.errors = traceback.print_exc()
+            #self.errors = list(str(e))
+            self.errors = [ord(c) for c in str(e)]
             
         UB = self.sample.UB_get()
         for i in range(3):
@@ -989,14 +1014,30 @@ class hklCalculator():
         self.lattice_vol = self.lattice.volume_get().value_get(0)
         print(self.lattice_vol)
 
+#    def get_info(self):
+#        print(f'self.geom: {self.geom}')
+#        diff_geom = self.factory.name_get()
+#        print(diff_geom)
+#        samp = self.sample.lattice_get()
+#        a,b,c,alpha,beta,gamma = samp.get(Hkl.UnitEnum.USER)
+#        print(f'a: {a}, b: {b}, c: {c}, alpha: {alpha}, beta: {beta}, gamma: {gamma}')
+#        print(f'UB: {self.UB_matrix}')
+#        print(f'latt vol: {self.lattice_vol}')
+#        x = self.engine_hkl.axis_names_get(Hkl.EngineAxisNamesGet.READ)
+#        print(f'diffractometer axes:\n{x}')
+#        return
+
     def get_info(self):
-        print(f'self.geom: {self.geom}')
+        lines = []
+        lines.append(f'self.geom: {self.geom}')
         diff_geom = self.factory.name_get()
-        print(diff_geom)
+        lines.append(str(diff_geom))
         samp = self.sample.lattice_get()
-        a,b,c,alpha,beta,gamma = samp.get(Hkl.UnitEnum.USER)
-        print(f'a: {a}, b: {b}, c: {c}, alpha: {alpha}, beta: {beta}, gamma: {gamma}')
-        print(f'UB: {self.UB_matrix}')
-        print(f'latt vol: {self.lattice_vol}')
+        a, b, c, alpha, beta, gamma = samp.get(Hkl.UnitEnum.USER)
+        lines.append(f'a: {a}, b: {b}, c: {c}, alpha: {alpha}, beta: {beta}, gamma: {gamma}')
+        lines.append(f'UB: {self.UB_matrix}')
+        lines.append(f'latt vol: {self.lattice_vol}')
         x = self.engine_hkl.axis_names_get(Hkl.EngineAxisNamesGet.READ)
-        print(x)
+        lines.append(f'diffractometer axes:\n{x}')
+        return '\n'.join(lines)
+     

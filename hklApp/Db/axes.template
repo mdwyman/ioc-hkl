@@ -528,7 +528,7 @@ record(ao, "$(P)$(R)komega_k6c") {
     field(DTYP, "pydev")
     field(DRVL, "-180")
     field(DRVH, "180")
-    field(OUT, "@hkl_calc.axes_ekc[1]=VAL")
+    field(OUT, "@hkl_calc.axes_k6c[1]=VAL")
     field(FLNK, "$(P)$(R)komega_k6c_RBV")
 }
 
@@ -545,7 +545,7 @@ record(ao, "$(P)$(R)komega_k6c_min") {
     field(DTYP, "pydev")
     field(DRVL, "-180")
     field(DRVH, "180")
-    field(OUT, "@hkl_calc.axes_ekc_min[1]=VAL")
+    field(OUT, "@hkl_calc.axes_k6c_min[1]=VAL")
 }
 
 record(ao, "$(P)$(R)komega_k6c_max") {
@@ -554,7 +554,7 @@ record(ao, "$(P)$(R)komega_k6c_max") {
     field(DTYP, "pydev")
     field(DRVL, "-180")
     field(DRVH, "180")
-    field(OUT, "@hkl_calc.axes_ekc_max[1]=VAL")
+    field(OUT, "@hkl_calc.axes_k6c_max[1]=VAL")
 }
 
 record(ao, "$(P)$(R)kappa_k6c") {
