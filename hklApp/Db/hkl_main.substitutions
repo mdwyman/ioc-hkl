@@ -22,7 +22,6 @@ pattern {P, R}
 { abtest:ioc-hkl, : }
 }
 
-
 file axes_solns.template 
 {
 pattern {P, R, C}
@@ -69,7 +68,6 @@ file UB_calc.template
 pattern {P, R}
 { abtest:ioc-hkl, : }
 }
-
 
 file UB_calc_refine_refls.template 
 {

@@ -2,7 +2,7 @@
 <display version="2.0.0">
   <name>HKL_refine</name>
   <width>1350</width>
-  <height>900</height>
+  <height>1000</height>
   <widget type="arc" version="2.0.0">
     <name>Arc</name>
     <x>140</x>
@@ -26,5 +26,27 @@
       <point x="0.0" y="0.0">
       </point>
     </points>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Input_1</name>
+    <pv_name>$(Sys)errors</pv_name>
+    <x>60</x>
+    <y>890</y>
+    <width>620</width>
+    <height>70</height>
+    <background_color>
+      <color red="255" green="255" blue="255">
+      </color>
+    </background_color>
+    <format>6</format>
+    <wrap_words>true</wrap_words>
+    <multi_line>true</multi_line>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </border_color>
   </widget>
 </display>

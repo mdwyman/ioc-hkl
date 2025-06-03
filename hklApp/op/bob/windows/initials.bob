@@ -704,8 +704,8 @@
     <pv_name>$(Sys)errors</pv_name>
     <x>810</x>
     <y>324</y>
-    <width>470</width>
-    <height>250</height>
+    <width>330</width>
+    <height>98</height>
     <background_color>
       <color red="255" green="255" blue="255">
       </color>

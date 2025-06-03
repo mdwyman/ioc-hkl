@@ -27,14 +27,35 @@
     <x>20</x>
     <y>20</y>
     <width>1230</width>
-    <height>490</height>
   </widget>
   <widget type="embedded" version="2.0.0">
     <name>Embedded Display_7</name>
     <file>../windows/backward_output.bob</file>
     <x>20</x>
-    <y>510</y>
+    <y>330</y>
     <width>1230</width>
     <height>400</height>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Input_1</name>
+    <pv_name>$(Sys)errors</pv_name>
+    <x>40</x>
+    <y>780</y>
+    <width>560</width>
+    <height>60</height>
+    <background_color>
+      <color red="255" green="255" blue="255">
+      </color>
+    </background_color>
+    <format>6</format>
+    <wrap_words>true</wrap_words>
+    <multi_line>true</multi_line>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </border_color>
   </widget>
 </display>

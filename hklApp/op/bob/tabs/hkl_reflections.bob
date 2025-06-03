@@ -2,7 +2,6 @@
 <display version="2.0.0">
   <name>hkl_reflections</name>
   <width>1250</width>
-  <height>500</height>
   <widget type="embedded" version="2.0.0">
     <name>Embedded Display</name>
     <file>../windows/reflections.bob</file>
@@ -10,5 +9,27 @@
     <y>10</y>
     <width>1220</width>
     <height>440</height>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Input_1</name>
+    <pv_name>$(Sys)errors</pv_name>
+    <x>90</x>
+    <y>470</y>
+    <width>410</width>
+    <height>70</height>
+    <background_color>
+      <color red="255" green="255" blue="255">
+      </color>
+    </background_color>
+    <format>6</format>
+    <wrap_words>true</wrap_words>
+    <multi_line>true</multi_line>
+    <actions>
+    </actions>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </border_color>
   </widget>
 </display>

@@ -3,6 +3,7 @@ import numpy as np
 #import pandas as pd
 #from epics import caget
 #import traceback
+import datetime
 import gi
 from gi.repository import GLib
 gi.require_version('Hkl', '5.0')
@@ -37,8 +38,8 @@ class hklCalculator():
         self.lattice = np.nan 
         self.lattice_vol = 0.
         
-        #self.errors = list('test string') #TODO
-        self.errors = [ord(c) for c in "test string"]
+        ct = datetime.datetime.now().isoformat()
+        self.errors = [ord(c) for c in str(ct)]
         
         self.energy = 0.
         self.wavelength_result = 0.
@@ -294,12 +295,14 @@ class hklCalculator():
             self.engine_emergence = self.engines.engine_get_by_name("emergence")
         self.curr_num_refls = 0        
 
-        #self.set_limits()
+        #self.set_limits() #TODO
         self.get_UB_matrix()    
         self.get_latt_vol()
         status = self.get_info()
-        print(f'THIS IS STATUS {status}')
-        #self.errors = f'{self.geom_name} started {status}'
+        ct = datetime.datetime.now().isoformat()
+        status_string = f'initialized geometry {status}'
+        self.errors = [ord(c) for c in str(ct + '\n' + status_string)]
+
 
     def energy_to_wavelength_neutron(self):
         # Xrays
@@ -427,14 +430,17 @@ class hklCalculator():
                             float(self.axes_k6c_max[5])] 
         try:
             self.geometry.axis_values_set(values_w, Hkl.UnitEnum.USER)
-            for axis in self.geometry.axis_names_get():
-                tmp = self.geometry.axis_get(axis)
-                tmp.min_max_set(0, 180.0, Hkl.UnitEnum.USER)
-                self.geometry.axis_set(axis, tmp)
+            #for axis in self.geometry.axis_names_get():
+            #    print(axis)
+            #    tmp = self.geometry.axis_get(axis)
+            #    tmp.min_max_set(0, 180.0, Hkl.UnitEnum.USER)
+            #    self.geometry.axis_set(axis, tmp)
+            ct = datetime.datetime.now().isoformat()
+            self.errors=[ord(c) for c in str(ct)] # success
         except Exception as e:
-            print(f'error: {e}')
-            #self.errors=list(str(e))
-            self.errors=[ord(c) for c in str(e)]
+            ct = datetime.datetime.now().isoformat()
+            self.errors=[ord(c) for c in str(ct + '\n' + str(e))] # failure
+            print(f'error: {e}') 
             return
 
         self.engines.get()
@@ -490,6 +496,8 @@ class hklCalculator():
         self.get_UB_matrix()
 
     def forward_UB(self):
+        #TODO rename? adds a reflection, kind of confusing.
+        #TODO runs twice when  pressing "calculate UB
         print("Forward UB function start")
         if self.geom == 1 or 2:
             values_w = [float(self.axes_UB_e4c[0]), \
@@ -516,11 +524,13 @@ class hklCalculator():
                         float(self.axes_UB_k6c[4]), \
                         float(self.axes_UB_k6c[5])] 
         try:
+            #TODO check if this is how UB calculation is done in hkl package
+            # currently need to run this function when adding reflections for some reason
             self.geometry.axis_values_set(values_w, Hkl.UnitEnum.USER)
         except Exception as e:
-            #self.errors = list(str(e))
-            self.errors = [ord(c) for c in str(e)]
-            print("invalid axes values")
+            ct = datetime.datetime.now().isoformat()
+            self.errors = [ord(c) for c in str(ct + '\n' + str(e))]
+            print(f'error: {e}')
             return
 
     def backward(self):
@@ -586,9 +596,11 @@ class hklCalculator():
                     self.axes_solns_kphi_k6c[i], \
                     self.axes_solns_gamma_k6c[i], \
                     self.axes_solns_delta_k6c[i] = values_w_all[i]
+            ct = datetime.datetime.now().isoformat()
+            self.errors = [ord(c) for c in str(ct)] # success
         except Exception as e:
-            #self.errors = list(str(e))
-            self.errors = [ord(c) for c in str(e)]
+            ct = datetime.datetime.now().isoformat()
+            self.errors = [ord(c) for c in str(ct + '\n' + str(e))] # failure
             print(f'error: {e}')
 
      
@@ -840,31 +852,42 @@ class hklCalculator():
         self.add_reflection1()
         self.add_reflection2()
         try:
-            self.sample.compute_UB_busing_levy(self.refl1, self.refl2)
+            self.sample.compute_UB_busing_levy(self.refl1, self.refl2) #TODO duplicate use of reflection values?)
+            UB = self.sample.UB_get()
+            for i in range(3):
+                for j in range(3):
+                    self.UB_matrix_bl[i,j] = UB.get(i,j)
+            ct = datetime.datetime.now().isoformat()
+            self.errors = [ord(c) for c in str(ct)] # success #TODO overwritten by start()
+            self.start() # Reinitializes sample with lattice parameters
+            #TODO Try to change the UB matrix instead of reinitializing, confusing
         except Exception as e:
-            #self.errors = list(str(e))
-            self.errors = [ord(c) for c in str(e)]
-            print("error: {e}")
-        UB = self.sample.UB_get()
-        for i in range(3):
-            for j in range(3):
-                self.UB_matrix_bl[i,j] = UB.get(i,j)
-        self.start() # Reinitializes sample with lattice parameters
+            ct = datetime.datetime.now().isoformat()
+            self.errors = [ord(c) for c in str(ct + '\n' + str(e))] # failure
+            print(f'error: {e}')
 
     def compute_set_UB_matrix(self):
+        #TODO replace by feeding into user input UB
         '''
         same thing as compute_UB_matrix, but without start()
         '''
         self.add_reflection1()
         self.add_reflection2()
-        self.sample.compute_UB_busing_levy(self.refl1, self.refl2)
-        UB = self.sample.UB_get()
-        for i in range(3):
-            for j in range(3):
-                self.UB_matrix_bl[i,j] = UB.get(i,j)
-                self.UB_matrix[i,j] = UB.get(i,j)
+        try:
+            self.sample.compute_UB_busing_levy(self.refl1, self.refl2)
+            UB = self.sample.UB_get()
+            for i in range(3):
+                for j in range(3):
+                    self.UB_matrix_bl[i,j] = UB.get(i,j)
+                    self.UB_matrix[i,j] = UB.get(i,j)
+            ct = datetime.datetime.now().isoformat()
+            self.errors = [ord(c) for c in str(ct)] # success
+        except Exception as e:
+            ct = datetime.datetime.now().isoformat()
+            self.errors = [ord(c) for c in str(ct + '\n' + str(e))] # failure
+            print(f'error: {e}')
 
-    def get_UB_matrix(self):
+    def get_UB_matrix(self): #TODO not really a "get" function, writes from hkl sample to python
         UB = self.sample.UB_get()
         for i in range(3):
             for j in range(3):
@@ -882,13 +905,14 @@ class hklCalculator():
                 print(UB_temp.get(i,j))
         try:
             self.sample.UB_set(UB_temp)
+            ct = datetime.datetime.now().isoformat()
+            self.errors = [ord(c) for c in str(ct)] # success
         except Exception as e:
-            #self.errors = list(str(e))
-            self.errors = [ord(c) for c in str(e)]
-            print(f'dtype of e: {type(e)}')
+            ct = datetime.datetime.now().isoformat()
+            self.errors = [ord(c) for c in str(ct + '\n' + str(e))] # failure
             print(f'error: {e}')
         self.get_UB_matrix()
-        self.get_info()        
+        #self.get_info() # why?   
 
     def affine(self):
         '''
@@ -896,27 +920,27 @@ class hklCalculator():
         '''
         try:
             self.sample.affine()
-        #except RuntimeError as e:
+            UB = self.sample.UB_get()
+            for i in range(3):
+                for j in range(3):
+                    self.UB_matrix_simplex[i,j] = UB.get(i,j)
+            self.latt_refine[0], self.latt_refine[1], self.latt_refine[2], \
+                self.latt_refine[3], self.latt_refine[4], self.latt_refine[5] = \
+                self.lattice.get(Hkl.UnitEnum.USER)        
+            self.start() #TODO again, try to preview calculated UB 
+            #instead of resetting sample, start() resets sample when not setting
+            # shouldn't be needed
         except Exception as e:
-            #TODO
-            #self.errors = traceback.print_exc()
-            #self.errors = list(str(e))
-            self.errors = [ord(c) for c in str(e)]
-            
-        UB = self.sample.UB_get()
-        for i in range(3):
-            for j in range(3):
-                self.UB_matrix_simplex[i,j] = UB.get(i,j)
-        self.latt_refine[0], self.latt_refine[1], self.latt_refine[2], \
-            self.latt_refine[3], self.latt_refine[4], self.latt_refine[5] = \
-            self.lattice.get(Hkl.UnitEnum.USER)        
-        self.start()
+            ct = datetime.datetime.now().isoformat()
+            self.errors = [ord(c) for c in str(ct + '\n' + str(e))]
+            print(f'error: {e}')
 
     def affine_set(self):
         '''
         takes in >2 reflections to refine lattice parameters and UB matrix
         '''
         self.sample.affine()
+        #TODO just route PVs/python variables, don't re-run
         UB = self.sample.UB_get()
         for i in range(3):
             for j in range(3):
@@ -1014,30 +1038,17 @@ class hklCalculator():
         self.lattice_vol = self.lattice.volume_get().value_get(0)
         print(self.lattice_vol)
 
-#    def get_info(self):
-#        print(f'self.geom: {self.geom}')
-#        diff_geom = self.factory.name_get()
-#        print(diff_geom)
-#        samp = self.sample.lattice_get()
-#        a,b,c,alpha,beta,gamma = samp.get(Hkl.UnitEnum.USER)
-#        print(f'a: {a}, b: {b}, c: {c}, alpha: {alpha}, beta: {beta}, gamma: {gamma}')
-#        print(f'UB: {self.UB_matrix}')
-#        print(f'latt vol: {self.lattice_vol}')
-#        x = self.engine_hkl.axis_names_get(Hkl.EngineAxisNamesGet.READ)
-#        print(f'diffractometer axes:\n{x}')
-#        return
-
     def get_info(self):
         lines = []
-        lines.append(f'self.geom: {self.geom}')
+        #lines.append(f'self.geom: {self.geom}')
         diff_geom = self.factory.name_get()
         lines.append(str(diff_geom))
+        x = self.engine_hkl.axis_names_get(Hkl.EngineAxisNamesGet.READ)
+        lines.append(f'diffractometer axes:\n{x}')
         samp = self.sample.lattice_get()
         a, b, c, alpha, beta, gamma = samp.get(Hkl.UnitEnum.USER)
         lines.append(f'a: {a}, b: {b}, c: {c}, alpha: {alpha}, beta: {beta}, gamma: {gamma}')
         lines.append(f'UB: {self.UB_matrix}')
         lines.append(f'latt vol: {self.lattice_vol}')
-        x = self.engine_hkl.axis_names_get(Hkl.EngineAxisNamesGet.READ)
-        lines.append(f'diffractometer axes:\n{x}')
         return '\n'.join(lines)
      
