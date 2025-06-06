@@ -1,0 +1,6 @@
+# Activate python environment containing modules used by IOC
+#eval "$(conda shell.bash hook)"
+conda activate hkl
+
+# Put python library in path
+export LD_LIBRARY_PATH=/home/beams/MWYMAN/micromamba/envs/bluesky_2024_1/envs/hkl/lib:$LD_LIBRARY_PATH

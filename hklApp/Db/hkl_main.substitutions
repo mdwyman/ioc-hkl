@@ -1,86 +1,86 @@
 file initials.template
 {
 pattern {P,R}
-{  abtest:ioc-hkl, : }
+{  $(PREFIX), : }
 }
 
 file pseudoaxes.template 
 {
 pattern {P, R}
-{ abtest:ioc-hkl, : }
+{ $(PREFIX), : }
 }
 
 file pseudoaxes_solns.template 
 {
 pattern {P, R}
-{ abtest:ioc-hkl, : }
+{ $(PREFIX), : }
 }
 
 file axes.template 
 {
 pattern {P, R}
-{ abtest:ioc-hkl, : }
+{ $(PREFIX), : }
 }
 
 file axes_solns.template 
 {
 pattern {P, R, C}
-{ abtest:ioc-hkl, : , 0 }
-{ abtest:ioc-hkl, : , 1 }
-{ abtest:ioc-hkl, : , 2 }
-{ abtest:ioc-hkl, : , 3 }
-{ abtest:ioc-hkl, : , 4 }
-{ abtest:ioc-hkl, : , 5 }
-{ abtest:ioc-hkl, : , 6 }
-{ abtest:ioc-hkl, : , 7 }
-{ abtest:ioc-hkl, : , 8 }
-{ abtest:ioc-hkl, : , 9 }
-{ abtest:ioc-hkl, : , 10 }
-{ abtest:ioc-hkl, : , 11 }
-{ abtest:ioc-hkl, : , 12 }
-{ abtest:ioc-hkl, : , 13 }
-{ abtest:ioc-hkl, : , 14 }
-{ abtest:ioc-hkl, : , 15 }
-{ abtest:ioc-hkl, : , 16 }
-{ abtest:ioc-hkl, : , 17 }
-{ abtest:ioc-hkl, : , 18 }
-{ abtest:ioc-hkl, : , 19 }
-{ abtest:ioc-hkl, : , 20 }
-{ abtest:ioc-hkl, : , 21 }
-{ abtest:ioc-hkl, : , 22 }
-{ abtest:ioc-hkl, : , 23 }
-{ abtest:ioc-hkl, : , 24 }
-{ abtest:ioc-hkl, : , 25 }
-{ abtest:ioc-hkl, : , 26 }
-{ abtest:ioc-hkl, : , 27 }
-{ abtest:ioc-hkl, : , 28 }
-{ abtest:ioc-hkl, : , 29 }
+{ $(PREFIX), : , 0 }
+{ $(PREFIX), : , 1 }
+{ $(PREFIX), : , 2 }
+{ $(PREFIX), : , 3 }
+{ $(PREFIX), : , 4 }
+{ $(PREFIX), : , 5 }
+{ $(PREFIX), : , 6 }
+{ $(PREFIX), : , 7 }
+{ $(PREFIX), : , 8 }
+{ $(PREFIX), : , 9 }
+{ $(PREFIX), : , 10 }
+{ $(PREFIX), : , 11 }
+{ $(PREFIX), : , 12 }
+{ $(PREFIX), : , 13 }
+{ $(PREFIX), : , 14 }
+{ $(PREFIX), : , 15 }
+{ $(PREFIX), : , 16 }
+{ $(PREFIX), : , 17 }
+{ $(PREFIX), : , 18 }
+{ $(PREFIX), : , 19 }
+{ $(PREFIX), : , 20 }
+{ $(PREFIX), : , 21 }
+{ $(PREFIX), : , 22 }
+{ $(PREFIX), : , 23 }
+{ $(PREFIX), : , 24 }
+{ $(PREFIX), : , 25 }
+{ $(PREFIX), : , 26 }
+{ $(PREFIX), : , 27 }
+{ $(PREFIX), : , 28 }
+{ $(PREFIX), : , 29 }
 }
 
 file functions.template 
 {
 pattern {P, R}
-{ abtest:ioc-hkl, : }
+{ $(PREFIX), : }
 }
 
 file UB_calc.template 
 {
 pattern {P, R}
-{ abtest:ioc-hkl, : }
+{ $(PREFIX), : }
 }
 
 file UB_calc_refine_refls.template 
 {
 pattern {P, R, C}
-{ abtest:ioc-hkl, : , 0 }
-{ abtest:ioc-hkl, : , 1 }
-{ abtest:ioc-hkl, : , 2 }
-{ abtest:ioc-hkl, : , 3 }
-{ abtest:ioc-hkl, : , 4 }
-{ abtest:ioc-hkl, : , 5 }
-{ abtest:ioc-hkl, : , 6 }
-{ abtest:ioc-hkl, : , 7 }
-{ abtest:ioc-hkl, : , 8 }
-{ abtest:ioc-hkl, : , 9 }
-{ abtest:ioc-hkl, : , 10 }
+{ $(PREFIX), : , 0 }
+{ $(PREFIX), : , 1 }
+{ $(PREFIX), : , 2 }
+{ $(PREFIX), : , 3 }
+{ $(PREFIX), : , 4 }
+{ $(PREFIX), : , 5 }
+{ $(PREFIX), : , 6 }
+{ $(PREFIX), : , 7 }
+{ $(PREFIX), : , 8 }
+{ $(PREFIX), : , 9 }
+{ $(PREFIX), : , 10 }
 }

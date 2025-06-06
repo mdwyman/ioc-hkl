@@ -1,0 +1,2 @@
+SYS_PROD_LIBS += python3.11 pthread dl util m
+USR_CXXFLAGS += -I/home/beams2/MWYMAN/micromamba/envs/bluesky_2024_1/envs/hkl/include/python3.11 -I/home/beams2/MWYMAN/micromamba/envs/bluesky_2024_1/envs/hkl/include/python3.11
